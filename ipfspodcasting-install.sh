@@ -21,7 +21,7 @@ if [ $EUID = 0 ]; then
     fi
   done  
 
-  # Install wget, moreutils, python3, pip, requests (if required)
+  # Install wget, moreutils, python3, requests (if required)
   if [ $(which crontab &> /dev/null; echo $?) != 0 ]; then 
     # Ugh, cron is not installed on a minimal Ubuntu server
     echo 'Installing cron...'
@@ -39,15 +39,7 @@ if [ $EUID = 0 ]; then
     echo 'Installing python3...'
     DEBIAN_FRONTEND=noninteractive apt-get -y -qq install python3
   fi
-  if [ $(pip -V &> /dev/null; echo $?) != 0 ]; then 
-    echo 'Installing python3-pip...'
-    apt-get -y -qq update
-    DEBIAN_FRONTEND=noninteractive apt-get -y -qq install python3-pip
-  fi
-  if [ $(pip list|grep requests &> /dev/null; echo $?) != 0 ]; then 
-    echo 'Installing PIP Requests Module...'
-    pip -q install requests
-  fi
+  DEBIAN_FRONTEND=noninteractive apt-get -y -qq install python3-requests
   #Install IPFS-Update (if required)
   if [ $(ipfs-update --version &> /dev/null; echo $?) != 0 ]; then 
     echo 'Installing IPFS...'
