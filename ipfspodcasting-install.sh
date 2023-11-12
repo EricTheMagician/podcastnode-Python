@@ -21,11 +21,15 @@ if [ $EUID = 0 ]; then
     fi
   done  
 
-  # Install wget, python3, pip, requests (if required)
+  # Install wget, moreutils, python3, pip, requests (if required)
   if [ $(which crontab &> /dev/null; echo $?) != 0 ]; then 
     # Ugh, cron is not installed on a minimal Ubuntu server
     echo 'Installing cron...'
     DEBIAN_FRONTEND=noninteractive apt-get -y -qq install cron
+  fi
+  if [ $(which ifne &> /dev/null; echo $?) != 0 ]; then 
+    echo 'Installing moreutils...'
+    DEBIAN_FRONTEND=noninteractive apt-get -y -qq install moreutils
   fi
   if [ $(wget -V &> /dev/null; echo $?) != 0 ]; then 
     echo 'Installing wget...'

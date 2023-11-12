@@ -42,6 +42,11 @@ if wcpath is None:
     logging.error("wc executable not found")
     sys.exit(102)
 
+ifnepath = shutil.which("ifne")
+if ifnepath is None:
+    logging.error("ifne executable not found")
+    sys.exit(103)
+
 
 # Randomize requests so not all in the same second
 wait = random.randint(1, 150)
@@ -116,6 +121,8 @@ elif work["message"][0:7] != "No Work":
                 + ' -q --no-check-certificate "'
                 + work["download"]
                 + '" -O - | '
+                + ifnepath
+                + " "
                 + ipfspath
                 + ' add -q -w --stdin-name "'
                 + work["filename"]
